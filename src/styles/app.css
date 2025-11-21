@@ -1,0 +1,424 @@
+/*
+    Document   : override
+*/
+
+:root {
+  --bg: #F0F2F6;
+  --card: #FFFFFF;
+  --muted: #6C757D;
+  --border: #E2E8F0;
+}
+
+/* GLOBAL BODY BACKGROUND */
+body {
+  background: var(--bg) !important;
+}
+
+/* ORACLE LOGO */
+.demo-oracle-icon {
+    width:137px;
+    height:18px;
+    content:url("images/oracle_logo.svg")
+}
+
+html:not([dir="rtl"]) .demo-oracle-icon {
+    padding-right:4px
+}
+
+html[dir="rtl"] .demo-oracle-icon {
+    padding-left:4px
+}
+
+/* HEADER NAVIGATION */
+.header-nav a {
+  margin-left: 20px;
+  text-decoration: none;
+  color: #334155;
+  font-weight: 500;
+}
+
+.header-nav a.nav-active {
+  color: #0d6efd;
+  font-weight: 700;
+  border-bottom: 2px solid #0d6efd;
+  padding-bottom: 3px;
+}
+
+.kpi-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+
+  /* The magic fix */
+  max-width: var(--oj-private-applayout-max-width, 1280px);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+
+
+/* Make JET legend marker/dash thicker & more visible */
+oj-chart .oj-chart-legend-item-marker {
+  width: 18px !important;
+  height: 20px !important;       /* thickness */
+  stroke-width: 20px !important; /* bold line */
+  border-radius: 3px !important;
+}
+
+/* Ensure JET Table is visible */
+oj-table {
+  width: 100%;
+  min-height: 350px; /* 👈 required to show rows */
+  display: block;
+  margin-top: 10px;
+}
+
+/* Fix table body collapsing */
+oj-table .oj-table-body {
+  background: white;
+  min-height: 250px;
+}
+
+/* Optional - Show borders cleanly */
+oj-table .oj-table-header,
+oj-table .oj-table-body-row {
+  border-bottom: 1px solid var(--border);
+}
+
+
+/* Improve entire table presentation */
+oj-table {
+  width: 100%;
+  --oj-table-cell-padding-horizontal: 14px;
+  --oj-table-cell-padding-vertical: 10px;
+  --oj-table-header-font-weight: 600;
+  --oj-table-grid-color: #e7e7ec;
+  --oj-table-header-text-color: #444;
+  --oj-table-row-height: 44px;
+}
+
+/* Zebra style */
+oj-table .oj-table-body-row {
+  transition: background 0.15s ease-in-out;
+}
+
+oj-table .oj-table-body-row:hover {
+  background: #f7f9fc !important;
+}
+
+/* Column alignment */
+oj-table .oj-table-cell:nth-child(2),
+oj-table .oj-table-cell:nth-child(3),
+oj-table .oj-table-cell:nth-child(4),
+oj-table .oj-table-cell:nth-child(5),
+oj-table .oj-table-cell:nth-child(6),
+oj-table .oj-table-cell:nth-child(7),
+oj-table .oj-table-cell:nth-child(8) {
+  text-align: center;
+}
+
+/* Pills */
+.ok-pill .oj-table-cell {
+  background: #daf3d5;
+  color: #1d6e37;
+  font-weight: 600;
+  border-radius: 40px;
+  text-align: center;
+}
+
+.warn-pill .oj-table-cell {
+  background: #fff3cd;
+  color: #b8860b;
+  font-weight: 600;
+  border-radius: 40px;
+  text-align: center;
+}
+
+.error-pill .oj-table-cell {
+  background: #f8d7da;
+  color: #842029;
+  font-weight: 600;
+  border-radius: 40px;
+  text-align: center;
+}
+
+.term-pill .oj-table-cell {
+  background: #eee2d5;
+  color: #6a4a2f;
+  font-weight: 600;
+  border-radius: 40px;
+  text-align: center;
+}
+
+/* Sticky header option — uncomment if you want */
+.oj-table-header {
+  position: sticky;
+  top: 0;
+  background: #fff;
+  z-index: 2;
+}
+
+
+
+.kpi-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px;
+  width: 140px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.04);
+
+  /* CENTER CONTENT */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+/* ---------- Controls Row Styling ---------- */
+.controls-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--card);
+  border-radius: 10px;
+  padding: 16px 20px;
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.04);
+  margin-bottom: 20px;
+}
+
+/* Slider + Refresh group in one row */
+.slider-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.slider-group label {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.hour-value {
+  width: 24px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.refresh-btn {
+  background: #0d6efd;
+  color: white;
+  font-size: 14px;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.25s;
+}
+.refresh-btn:hover {
+  background: #0b5cd5;
+}
+
+/* View mode buttons as a segmented control */
+.view-buttons {
+  display: flex;
+  gap: 0;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.view-buttons button {
+  padding: 10px 24px;
+  background: #ffffff;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: 0.25s ease-in-out;
+}
+
+.view-buttons button:hover {
+  background: #f4f6f9;
+}
+
+.view-buttons button.active {
+  background: #e6f0ff;
+  color: #004ecb;
+  border-bottom: 3px solid #004ecb;
+}
+
+.table-controls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-bottom: 12px;
+}
+
+.search-input {
+  flex: 2;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.topn-buttons button {
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: white;
+}
+
+.download-csv-btn {
+  padding: 8px 14px;
+  background: #e0ecff;
+  color: #0049c6;
+  border-radius: 8px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.column-toggle-btn {
+  width: 120px;
+  padding: 10px;
+  background: #fff;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  margin-bottom: 10px;
+}
+
+.table-meta {
+  font-size: 14px;
+  color: #555;
+  padding: 8px 0;
+}
+
+/* Pill Styling */
+.ok-pill .oj-table-cell {
+  background: #daf3d5;
+  color: #3b7c2c;
+  text-align: center;
+  border-radius: 20px;
+  font-weight: 700;
+}
+
+.warn-pill .oj-table-cell {
+  background: #fff3cd;
+  color: #b8860b;
+  text-align: center;
+  border-radius: 20px;
+  font-weight: 700;
+}
+
+.error-pill .oj-table-cell {
+  background: #f8d7da;
+  color: #842029;
+  text-align: center;
+  border-radius: 20px;
+  font-weight: 700;
+}
+
+.term-pill .oj-table-cell {
+  background: #eee2d5;
+  color: #58442c;
+  text-align: center;
+  border-radius: 20px;
+  font-weight: 700;
+}
+
+
+.kpi-number {
+  font-size: 1.8rem;
+  font-weight: 700;
+  padding-bottom: 4px;
+}
+
+.kpi-label {
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+/* CHART PANELS */
+.charts-row {
+  display: flex;
+  gap: 14px;
+  margin-top: 22px;
+}
+
+.chart-big,
+.chart-small {
+  background: var(--card);
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.04);
+}
+
+.chart-big {
+  flex: 2;
+}
+
+.chart-small {
+  flex: 1;
+}
+
+/* TABLE PANEL */
+.table-panel {
+  margin-top: 20px;
+  background: var(--card);
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  padding: 16px;
+}
+
+
+
+/* AVATAR ICON */
+.demo-appheader-avatar {
+  width: 24px;
+  height: 24px;
+}
+
+.demo-appheader-avatar:before {
+  content:url("images/avatar_24px.png");
+}
+
+.custom-legend {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.legend-color {
+  width: 32px;
+  height: 8px;
+  border-radius: 4px;
+  background: #888;
+}
+
+
+@media (-webkit-min-device-pixel-ratio: 1.5),
+(min-resolution: 144dpi),
+(min-resolution: 1.5dppx) {
+  .demo-appheader-avatar:before {
+      content:url("images/avatar_24px_2x.png");
+      transform:translate(-25%, -25%) scale(0.5);
+  }
+}
+

@@ -1,17 +1,19 @@
-/*
-    Document   : override
-*/
 
 :root {
   --bg: #F0F2F6;
   --card: #FFFFFF;
   --muted: #6C757D;
   --border: #E2E8F0;
+
+  /* KPI default accent (can be overridden inline) */
+  --kpi-accent: #0d6efd;
 }
 
 /* GLOBAL BODY BACKGROUND */
 body {
   background: var(--bg) !important;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  color: #1f2937;
 }
 
 /* ORACLE LOGO */
@@ -58,8 +60,6 @@ html[dir="rtl"] .demo-oracle-icon {
   padding-right: 24px;
 }
 
-
-
 /* Make JET legend marker/dash thicker & more visible */
 oj-chart .oj-chart-legend-item-marker {
   width: 18px !important;
@@ -87,7 +87,6 @@ oj-table .oj-table-header,
 oj-table .oj-table-body-row {
   border-bottom: 1px solid var(--border);
 }
-
 
 /* Improve entire table presentation */
 oj-table {
@@ -160,8 +159,6 @@ oj-table .oj-table-cell:nth-child(8) {
   background: #fff;
   z-index: 2;
 }
-
-
 
 .kpi-card {
   background: var(--card);
@@ -335,7 +332,6 @@ oj-table .oj-table-cell:nth-child(8) {
   font-weight: 700;
 }
 
-
 .kpi-number {
   font-size: 1.8rem;
   font-weight: 700;
@@ -380,8 +376,6 @@ oj-table .oj-table-cell:nth-child(8) {
   padding: 16px;
 }
 
-
-
 /* AVATAR ICON */
 .demo-appheader-avatar {
   width: 24px;
@@ -422,3 +416,410 @@ oj-table .oj-table-cell:nth-child(8) {
   }
 }
 
+/* ========== ADDED: Modern KPI Cards ========== */
+.kpi-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 20px;
+  align-items: stretch;
+  margin-top: 20px;
+  max-width: var(--oj-private-applayout-max-width, 1200px);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 24px;
+  padding-right: 24px;
+  box-sizing: border-box;
+}
+
+/* Card */
+.kpi-card {
+  background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
+  border-radius: 12px;
+  padding: 18px 16px;
+  box-shadow: 0 6px 14px rgba(16,24,40,0.06);
+  border: 1px solid rgba(11,66,110,0.04);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  transition: transform .18s ease, box-shadow .18s ease;
+  min-height: 86px;
+}
+
+/* compact small variant */
+.kpi-card.kpi-card-compact {
+  padding: 12px;
+  min-height: 64px;
+}
+
+/* hover/active polish */
+.kpi-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 24px rgba(16,24,40,0.08);
+}
+
+/* top row: dot/icon + label */
+.kpi-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+
+/* colored dot */
+.kpi-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 1px 3px rgba(11,66,110,0.08);
+}
+
+/* optional svg icon container */
+.kpi-icon svg { width: 20px; height: 20px; display: block; }
+
+/* label */
+.kpi-label {
+  font-size: 13px;
+  color: #34495e;
+  font-weight: 600;
+}
+
+/* main number */
+.kpi-value {
+  margin-top: 8px;
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1;
+  color: #073b5f;
+  text-shadow: 0 1px 0 rgba(255,255,255,0.6);
+}
+
+/* small note line (optional) */
+.kpi-note {
+  margin-top: 6px;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+/* responsive tweaks */
+@media (max-width: 900px) {
+  .kpi-value { font-size: 22px; }
+  .kpi-card { padding: 14px; border-radius: 10px; }
+}
+
+/* ========== ADDED: Chart marker & tooltip polish ========== */
+/* Marker visuals: white stroke + slightly larger on hover */
+oj-chart .oj-chart-marker {
+  stroke: #ffffff !important;         /* white halo */
+  stroke-width: 1.3px !important;
+  transition: transform 0.12s ease, filter 0.12s ease;
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.08));
+}
+
+/* Slightly enlarge the marker when hovered */
+oj-chart .oj-chart-marker[hover-state='true'] {
+  transform: scale(1.4) !important;
+  filter: drop-shadow(0 3px 6px rgba(0,0,0,0.12));
+}
+
+/* Thicker nicer lines */
+oj-chart .oj-line {
+  stroke-width: 2.6 !important;
+  stroke-linejoin: round !important;
+  stroke-linecap: round !important;
+}
+
+/* Tooltip box styling (OJET tooltips are DOM elements, style them) */
+.oj-chart-tooltip {
+  border-radius: 6px !important;
+  background: #ffffff !important;
+  box-shadow: 0 8px 20px rgba(19, 38, 65, 0.08) !important;
+  color: #123645 !important;
+  padding: 6px 8px !important;
+  font-size: 13px !important;
+}
+
+/* ========== ADDED: Polished table styles ========== */
+/* Table overall */
+oj-table {
+  width: 100%;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  color: #1f2937;
+  --oj-table-row-height: 52px; /* comfortable row height */
+}
+
+/* Header: light, uppercase, small */
+oj-table .oj-table-header {
+  background: #ffffff;
+  border-bottom: 1px solid rgba(15,23,42,0.06);
+  color: #0f1724;
+  font-weight: 700;
+  text-transform: none;
+  letter-spacing: 0.2px;
+  font-size: 14px;
+}
+
+/* Sticky header */
+oj-table .oj-table-header {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+
+/* Row stripes & hover */
+oj-table .oj-table-body-row:nth-child(odd) {
+  background: transparent;
+}
+oj-table .oj-table-body-row:nth-child(even) {
+  background: rgba(15,23,42,0.01);
+}
+oj-table .oj-table-body-row:hover {
+  background: rgba(13,110,253,0.03) !important; /* subtle blue highlight */
+}
+
+/* Cell padding and text */
+oj-table .oj-table-cell {
+  padding: 12px 18px;
+  font-size: 14px;
+  border-bottom: 1px solid rgba(15,23,42,0.04);
+  vertical-align: middle;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Program Name column: left aligned and slightly larger */
+oj-table .oj-table-cell:first-child {
+  font-size: 15px;
+  font-weight: 600;
+  color: #0b3b5a;
+  text-align: left;
+}
+
+/* Right-align numeric columns (common pattern) */
+oj-table .oj-table-cell:nth-child(2),
+oj-table .oj-table-cell:nth-child(3),
+oj-table .oj-table-cell:nth-child(4),
+oj-table .oj-table-cell:nth-child(5),
+oj-table .oj-table-cell:nth-child(6),
+oj-table .oj-table-cell:nth-child(7),
+oj-table .oj-table-cell:nth-child(8) {
+  text-align: right;
+  font-weight: 600;
+}
+
+/* Small numeric tone (less heavy) */
+oj-table .oj-table-cell:nth-child(2),
+oj-table .oj-table-cell:nth-child(3),
+oj-table .oj-table-cell:nth-child(4) {
+  font-weight: 700;
+  color: #0b3b5a;
+}
+
+/* ---------- Status pill styles ---------- */
+.ok-pill .oj-table-cell,
+.oj-table .ok-pill.oj-table-cell {
+  color: #1f7a3a;
+  background: rgba(147,196,125,0.10);
+  border-radius: 999px;
+  padding: 6px 12px;
+  display: inline-block;
+  min-width: 48px;
+  text-align: center;
+}
+
+.warn-pill .oj-table-cell,
+.oj-table .warn-pill.oj-table-cell {
+  color: #b8860b;
+  background: rgba(255,217,102,0.10);
+  border-radius: 999px;
+  padding: 6px 12px;
+  display: inline-block;
+  min-width: 48px;
+  text-align: center;
+}
+
+.error-pill .oj-table-cell,
+.oj-table .error-pill.oj-table-cell {
+  color: #b0302b;
+  background: rgba(224,102,102,0.08);
+  border-radius: 999px;
+  padding: 6px 12px;
+  display: inline-block;
+  min-width: 48px;
+  text-align: center;
+}
+
+.term-pill .oj-table-cell,
+.oj-table .term-pill.oj-table-cell {
+  color: #5b3e8a;
+  background: rgba(142,124,195,0.08);
+  border-radius: 999px;
+  padding: 6px 12px;
+  display: inline-block;
+  min-width: 48px;
+  text-align: center;
+}
+
+/* subtle divider under header */
+oj-table .oj-table-header {
+  box-shadow: 0 1px 0 rgba(15,23,42,0.03) inset;
+}
+
+/* responsive: show horizontal scroll on small screens */
+.oj-table-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* scrollbar */
+oj-table::-webkit-scrollbar {
+  height: 8px;
+}
+
+/* small polish: ensure focus visible for keyboard users */
+.kpi-card:focus,
+.app-footer a:focus,
+.oj-table a:focus {
+  outline: 3px solid rgba(11,102,163,0.12);
+  outline-offset: 2px;
+}
+
+/* ========== ADDED: Footer styling (applies to .app-footer or OJET footer) ========== */
+/* Apply to either new app-footer or existing oj-web-applayout-footer */
+.app-footer,
+.oj-web-applayout-footer {
+  background: linear-gradient(180deg, #f8f9fb 0%, #ffffff 100%);
+  border-top: 1px solid rgba(0,0,0,0.06);
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  color: #333;
+  padding: 28px 16px;
+  margin-top: 28px;
+  box-sizing: border-box;
+}
+
+.app-footer .app-footer-inner,
+.oj-web-applayout-footer .app-footer-inner {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+}
+
+/* sections */
+.app-footer .footer-section,
+.oj-web-applayout-footer .footer-section {
+  flex: 1 1 260px;
+  min-width: 200px;
+}
+
+.app-footer .footer-logo-row,
+.oj-web-applayout-footer .footer-logo-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.app-footer .footer-title,
+.oj-web-applayout-footer .footer-title {
+  font-weight: 700;
+  font-size: 16px;
+  color: #0b3b5a;
+}
+
+/* links */
+.app-footer .footer-link-list,
+.oj-web-applayout-footer .footer-link-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.app-footer .footer-link,
+.oj-web-applayout-footer .footer-link {
+  color: #0b66a3;
+  text-decoration: none;
+  transition: color .15s ease, transform .12s ease;
+  font-size: 14px;
+}
+.app-footer .footer-link:hover,
+.oj-web-applayout-footer .footer-link:hover {
+  color: #083b5f;
+  transform: translateX(2px);
+}
+
+/* social icons */
+.app-footer .footer-social,
+.oj-web-applayout-footer .footer-social {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+.app-footer .connect-title,
+.oj-web-applayout-footer .connect-title { font-weight: 600; color: #445566; }
+.app-footer .social-icons,
+.oj-web-applayout-footer .social-icons { display: flex; gap: 12px; margin-top: 6px; }
+.app-footer .social-icon,
+.oj-web-applayout-footer .social-icon {
+  display: inline-flex;
+  width: 36px;
+  height: 36px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(16,24,40,0.04);
+  color: #0b66a3;
+  text-decoration: none;
+}
+
+/* legal */
+.app-footer .footer-legal,
+.oj-web-applayout-footer .footer-legal {
+  color: #777;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.app-footer .small-note,
+.oj-web-applayout-footer .small-note { margin-top: 6px; color: #999; font-size: 12px; }
+
+/* responsive */
+@media (max-width: 800px) {
+  .app-footer .app-footer-inner,
+  .oj-web-applayout-footer .app-footer-inner { gap: 16px; flex-direction: column; align-items: stretch; }
+  .app-footer .footer-section,
+  .oj-web-applayout-footer .footer-section { min-width: auto; }
+  .app-footer .footer-logo-row,
+  .oj-web-applayout-footer .footer-logo-row { justify-content: space-between; }
+}
+
+/* small polish: ensure footer links are keyboard-visible */
+.app-footer a:focus,
+.oj-web-applayout-footer a:focus {
+  outline: 3px solid rgba(11,102,163,0.12);
+  outline-offset: 2px;
+}
+
+/* ========== Small accessibility/utility tweaks ========== */
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* Focus visible style for keyboard users */
+:focus {
+  outline: 3px solid rgba(11,102,163,0.12);
+  outline-offset: 2px;
+}

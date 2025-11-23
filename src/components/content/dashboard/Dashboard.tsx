@@ -135,13 +135,13 @@ const summaryProvider = new ArrayDataProvider(summaryWithKeys, {
       {view === "summary" && (
   <>
     <div class="kpi-row">
-      <KpiCard label="Running" value={totals.running} color="#0d6efd" />
-      <KpiCard label="Pending" value={totals.pending_standby} color="#f6b26b" />
-      <KpiCard label="Scheduled" value={totals.scheduled} color="#7733ff" />
-      <KpiCard label="OK" value={totals.completed_ok} color="#93c47d" />
-      <KpiCard label="Warning" value={totals.completed_warning} color="#ffd966" />
-      <KpiCard label="Error" value={totals.completed_error} color="#e06666" />
-      <KpiCard label="Terminated" value={totals.completed_terminated} color="#8e7cc3" />
+      <KpiCard label="Running" value={totals.running} color="#0d6efd" compact/>
+      <KpiCard label="Pending" value={totals.pending_standby} color="#f6b26b" compact/>
+      <KpiCard label="Scheduled" value={totals.scheduled} color="#7733ff" compact/>
+      <KpiCard label="OK" value={totals.completed_ok} color="#93c47d" compact/>
+      <KpiCard label="Warning" value={totals.completed_warning} color="#ffd966" compact/>
+      <KpiCard label="Error" value={totals.completed_error} color="#e06666" compact/>
+      <KpiCard label="Terminated" value={totals.completed_terminated} color="#8e7cc3" compact/>
     </div>
 
     <div class="charts-row">

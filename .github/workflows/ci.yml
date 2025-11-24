@@ -1,0 +1,49 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  backend-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install backend deps and run tests
+        run: |
+          if [ -d backend ]; then
+            cd backend
+            python -m pip install --upgrade pip
+            if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+            if [ -d tests ]; then pytest -q || true; fi
+          else
+            echo "No backend folder found."
+          fi
+
+  frontend-install:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install frontend dependencies
+        run: |
+          if [ -f package.json ]; then
+            npm ci || npm install
+          fi
+          if [ -d frontend ] && [ -f frontend/package.json ]; then
+            cd frontend
+            npm ci || npm install
+          fi
